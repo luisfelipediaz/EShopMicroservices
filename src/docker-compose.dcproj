@@ -1,0 +1,22 @@
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+    <PropertyGroup Label="Globals">
+        <ProjectVersion>2.1</ProjectVersion>
+        <DockerTargetOS>Linux</DockerTargetOS>
+        <DockerPublishLocally>False</DockerPublishLocally>
+        <ProjectGuid>6dcbec70-4866-4297-9ad0-73928ccfa987</ProjectGuid>
+        <DockerLaunchAction>None</DockerLaunchAction>
+        <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
+        <DockerServiceName>ordering.api</DockerServiceName>
+        <UserSecretsId>027691b7-d566-4db3-8d27-5d03227674cc</UserSecretsId>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Include="docker-compose.override.yml">
+            <DependentUpon>docker-compose.yml</DependentUpon>
+        </None>
+        <None Include="docker-compose.yml"/>
+        <None Include=".dockerignore"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="launchSettings.json"/>
+    </ItemGroup>
+</Project>

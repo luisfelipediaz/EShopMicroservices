@@ -6,6 +6,19 @@ meta {
 
 post {
   url: https://localhost:5050/products
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "name": "IPhone 16 Pro",
+    "description": "The new Iphone 16 Pro",
+    "category": [
+      "smartphone",
+      "devices"
+    ],
+    "ImageFile": "",
+    "price": 600000
+  }
 }

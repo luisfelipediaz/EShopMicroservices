@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  catalogdb:
+    container_name: catalogdb
+    environment:
+      - POSTGRES_DB=CatalogDb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_catalog:/var/lib/postgresql/data
+  pgadmin:
+    container_name: pgadmin
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=luis.diaz@sinco.co
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+      - PGADMIN_LISTEN_PORT=8080
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+    ports:
+      - 8080:8080
