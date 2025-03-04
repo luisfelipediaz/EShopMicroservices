@@ -1,0 +1,16 @@
+meta {
+  name: Get Products
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{host}}/products?pageNumber=2&pageSize=5
+  body: none
+  auth: none
+}
+
+params:query {
+  pageNumber: 2
+  pageSize: 5
+}

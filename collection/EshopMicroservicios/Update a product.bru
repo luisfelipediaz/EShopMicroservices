@@ -1,0 +1,24 @@
+meta {
+  name: Update a product
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{host}}/products
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": "01954ce3-2283-4f1f-9fa8-d71ea47d5154",
+    "name": "IPhone 16 Pro",
+    "description": "The new Iphone 16 Pro",
+    "category": [
+      "devices"
+    ],
+    "ImageFile": "Test",
+    "price": 600000
+  }
+}
