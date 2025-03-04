@@ -5,6 +5,12 @@ services:
     image: postgres
   pgadmin:
     image: dpage/pgadmin4
+  
+  catalog.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    build:
+      context: .
+      dockerfile: Services/Catalog/Catalog.API/Dockerfile
 
 volumes:
   postgres_catalog:

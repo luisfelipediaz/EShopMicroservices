@@ -5,20 +5,20 @@ meta {
 }
 
 post {
-  url: https://localhost:5050/products
+  url: {{host}}/products
   body: json
   auth: none
 }
 
 body:json {
   {
-    "name": "Product de mierda",
-    "description": "Este producto es tan de mierda que voy a eliminarlo enseguida",
+    "name": "IPhone 16 Pro Max",
+    "description": "Nuevo IPhone 16 Pro max de apple",
     "category": [
       "smartphone",
       "devices"
     ],
     "ImageFile": "hi.png",
-    "price": 0
+    "price": 1099
   }
 }
