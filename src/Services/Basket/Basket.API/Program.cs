@@ -1,5 +1,4 @@
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Basket.API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +6,6 @@ var assembly = typeof(Program).Assembly;
 var connectionString = builder.Configuration.GetConnectionString("Database")!;
 
 // Add services to the container.
-builder.Services.AddValidatorsFromAssembly(assembly);
 builder.Services.AddMediatR(configuration =>
 {
     configuration.RegisterServicesFromAssembly(assembly);
@@ -18,18 +16,15 @@ builder.Services.AddMediatR(configuration =>
 builder.Services.AddCarter(new DependencyContextAssemblyCatalog([assembly]));
 
 builder.Services.AddMarten(options =>
-    {
-        options.Connection(connectionString);
-        options.DisableNpgsqlLogging = true;
-    })
-    .UseLightweightSessions();
+{
+    options.Connection(connectionString);
+    options.DisableNpgsqlLogging = true;
+    options.Schema.For<ShoppingCart>().Identity(cart => cart.UserName);
+}).UseLightweightSessions();
 
-if (builder.Environment.IsDevelopment())
-    builder.Services.InitializeMartenWith<CatalogInitialData>();
+builder.Services.AddHealthChecks();
 
-builder.Services.AddExceptionHandler<CustomExceptionHandler>();
-
-builder.Services.AddHealthChecks().AddNpgSql(connectionString);
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
 var app = builder.Build();
 

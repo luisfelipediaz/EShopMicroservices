@@ -3,6 +3,8 @@ version: '3.4'
 services:
   catalogdb:
     image: postgres
+  basketdb:
+    image: postgres
   pgadmin:
     image: dpage/pgadmin4
   
@@ -14,3 +16,4 @@ services:
 
 volumes:
   postgres_catalog:
+  postgres_basket:

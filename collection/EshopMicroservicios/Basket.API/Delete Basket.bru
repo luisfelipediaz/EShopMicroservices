@@ -1,0 +1,28 @@
+meta {
+  name: Delete Basket
+  type: http
+  seq: 3
+}
+
+delete {
+  url: https:/localhost:5051/basket/swn
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "Cart": {
+      "UserName": "swn",
+      "Items": [
+        {
+          "Quantity": 2,
+          "Color": "Red",
+          "Price": 1090,
+          "ProductId": "c4bbc4a2-4555-45d8-97cc-2a99b2167bff",
+          "ProductName": "LG G7 ThinQ"
+        }
+      ]
+    }
+  }
+}
