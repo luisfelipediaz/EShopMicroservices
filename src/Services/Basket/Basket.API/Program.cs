@@ -1,5 +1,3 @@
-using Basket.API.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
@@ -21,6 +19,8 @@ builder.Services.AddMarten(options =>
     options.DisableNpgsqlLogging = true;
     options.Schema.For<ShoppingCart>().Identity(cart => cart.UserName);
 }).UseLightweightSessions();
+
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 builder.Services.AddHealthChecks();
 
