@@ -33,6 +33,11 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=postgres
     ports:
       - 8080:8080
+  distributedcache:
+    container_name: distributedcache
+    restart: always
+    ports:
+      - "6379:6379"
   
   catalog.api:
     container_name: Catalog.API
@@ -51,3 +56,40 @@ services:
     volumes:
       - ~/.microsoft/usersecrets:/home/app/.microsoft/usersecrets:ro
       - ~/.aspnet/https:/https:ro
+  
+  basket.api:
+    container_name: Basket.API
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=basketdb;Port=5432;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
+      - ConnectionStrings__Redis=distributedcache:6379
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=pass
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    depends_on:
+      - basketdb
+      - distributedcache
+    ports:
+      - "6001:8080"
+      - "6061:8081"
+    volumes:
+      - ~/.microsoft/usersecrets:/home/app/.microsoft/usersecrets:ro
+      - ~/.aspnet/https:/https:ro
+  
+  discount.grpc:
+    container_name: Discount.Grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Data Source=discountdb
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=pass
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - "6002:8080"
+      - "6062:8081"
+    volumes:
+      - ~/.microsoft/usersecrets:/home/app/.microsoft/usersecrets:ro
+      - ~/.aspnet/https:/https:ro
+      

@@ -2,6 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
 var connectionString = builder.Configuration.GetConnectionString("Database")!;
+var redisConnectionString = builder.Configuration.GetConnectionString("Redis")!;
 
 // Add services to the container.
 builder.Services.AddMediatR(configuration =>
@@ -22,9 +23,11 @@ builder.Services.AddMarten(options =>
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-builder.Services.AddHealthChecks();
+builder.Services.AddHealthChecks().AddNpgSql(connectionString).AddRedis(redisConnectionString);
 
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+builder.Services.Decorate<IBasketRepository, CacheBasketRepository>();
+builder.Services.AddStackExchangeRedisCache(options => { options.Configuration = redisConnectionString; });
 
 var app = builder.Build();
 

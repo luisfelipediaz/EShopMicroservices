@@ -24,4 +24,10 @@
         <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.2"/>
+        <PackageReference Include="Scrutor" Version="6.0.1"/>
+    </ItemGroup>
+
 </Project>
