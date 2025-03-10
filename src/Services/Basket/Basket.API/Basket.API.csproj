@@ -17,7 +17,6 @@
         <Folder Include="Basket\CheckoutBasket\"/>
         <Folder Include="Dtos\"/>
         <Folder Include="GrpcServices\"/>
-        <Folder Include="Protos\"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -26,8 +25,15 @@
 
     <ItemGroup>
         <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="9.0.0"/>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.67.0"/>
         <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.2"/>
         <PackageReference Include="Scrutor" Version="6.0.1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="..\..\Discount\Discount.Grpc\Protos\discount.proto" GrpcServices="Client">
+            <Link>Protos\discount.proto</Link>
+        </Protobuf>
     </ItemGroup>
 
 </Project>
